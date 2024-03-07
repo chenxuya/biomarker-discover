@@ -1,0 +1,5 @@
+Index	Mean	Std	Split1
+Compound_0	1.0		1.0
+Compound_2	1.0		1.0
+Compound_6	1.0		1.0
+Compound_10	1.0		1.0

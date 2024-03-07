@@ -1,0 +1,16 @@
+HyperParam	best
+C	100.0
+class_weight	balanced
+dual	False
+fit_intercept	True
+intercept_scaling	1
+l1_ratio	
+max_iter	1000
+multi_class	auto
+n_jobs	
+penalty	l1
+random_state	46
+solver	liblinear
+tol	0.0001
+verbose	0
+warm_start	False

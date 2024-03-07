@@ -1,0 +1,12 @@
+Metric	Value
+AUC	1.0
+AUC_CI_left	1.0
+AUC_CI_right	1.0
+AUC_pvalue	8.291766237745724e-08
+Accuracy	1.0
+F1_socre	1.0
+Precision	1.0
+Recall(Sensitivity)	1.0
+Specificity	1.0
+Brier_score	0.003645833333333333
+Optimal_threshold	0.75

@@ -1,0 +1,13 @@
+	y_True	y_Predict	0_Probability	1_Probability
+Severe_13	1	1	0.0	1.0
+Mild_14	0	0	1.0	0.0
+Severe_28	1	1	0.15	0.85
+Mild_25	0	0	1.0	0.0
+Severe_16	1	1	0.0	1.0
+Mild_5	0	0	1.0	0.0
+Severe_26	1	1	0.1	0.9
+Mild_11	0	0	1.0	0.0
+Mild_20	0	0	1.0	0.0
+Severe_19	1	1	0.0	1.0
+Mild_16	0	0	1.0	0.0
+Severe_3	1	1	0.0	1.0

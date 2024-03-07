@@ -1,0 +1,5 @@
+	Importance
+Compound_0	2.4443524653712907
+Compound_2	1.0461305733770134
+Compound_10	0.07661051634285186
+Compound_6	0.0

@@ -1,0 +1,43 @@
+HyperParam	best
+objective	binary:logistic
+use_label_encoder	
+base_score	
+booster	
+callbacks	
+colsample_bylevel	
+colsample_bynode	
+colsample_bytree	
+early_stopping_rounds	
+enable_categorical	False
+eval_metric	
+feature_types	
+gamma	
+gpu_id	
+grow_policy	
+importance_type	
+interaction_constraints	
+learning_rate	0.1
+max_bin	
+max_cat_threshold	
+max_cat_to_onehot	
+max_delta_step	
+max_depth	3
+max_leaves	
+min_child_weight	
+missing	
+monotone_constraints	
+n_estimators	200
+n_jobs	
+num_parallel_tree	
+predictor	
+random_state	46
+reg_alpha	
+reg_lambda	
+sampling_method	
+scale_pos_weight	1.0
+subsample	
+tree_method	
+validate_parameters	
+verbosity	
+alpha	0.1
+lambda	1

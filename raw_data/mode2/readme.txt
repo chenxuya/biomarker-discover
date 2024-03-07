@@ -1,0 +1,7 @@
+在cfg文件中指定datafile 和test_data_file.
+需要将info_file 指定为 None.
+可以选择性指定marker_file.如果指定了marker_file,则按照maker_file中指定panel建模筛选。marker_file中不能有相同的列名，否则会造成结果覆盖。如果不指定则是用文件中所有的物质建模筛选。
+
+datafile的格式见data.csv， 此外还支持tab分割的txt，xls文件，csv文件，excel文件
+info_file的格式见sample_info.csv, 此外还支持tab分割的txt，xls文件，csv文件，excel文件
+marker_file的格式见mode1中的marker.txt， 此外还支持tab分割的txt，xls文件，csv文件，excel文件

@@ -1,0 +1,5 @@
+	0
+Compound_0	5.834676299535548
+Compound_2	1.8271123157661104
+Compound_6	0.0
+Compound_10	0.0

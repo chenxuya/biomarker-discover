@@ -1,0 +1,6 @@
+randomPanel1	randomPanel2
+Compound_0	Compound_13
+Compound_2	Compound_0
+Compound_6	Compound_19
+Compound_10	Compound_22
+	Compound_35

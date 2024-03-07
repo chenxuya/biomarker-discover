@@ -1,0 +1,6 @@
+	0
+Compound_13	0.059211545
+Compound_0	0.5092588
+Compound_19	0.22380167
+Compound_22	0.15796047
+Compound_35	0.04976751
