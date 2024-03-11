@@ -1,1 +1,14 @@
 # Add project dependencies here
+markdown
+pandas
+numpy
+scipy
+statsmodels
+matplotlib
+scikit-learn
+xgboost
+shap
+configparser
+venn
+skopt
+pickle
