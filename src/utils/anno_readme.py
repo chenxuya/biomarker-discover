@@ -62,8 +62,8 @@ def tree_readme(adir):
 def anno_tree(tree_readme):
     # 文件注释
     anno_dict = {
-        "Split1_.*_train.txt":" # 第1次分割的训练数据。",
-        "Split1_.*_test.txt":" # 第1次分割的测试数据。",
+        "Split1_.*_vs_.*_Train\.txt":" # 第1次分割的训练数据。",
+        "Split1_.*_vs_.*_Test\.txt":" # 第1次分割的测试数据。",
         "MergedRes":" # 重要文件夹",
         "RFE_Importance.txt":" # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。",
         "SavedModel_Importance.txt": " # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。",
@@ -94,7 +94,7 @@ def anno_tree(tree_readme):
         "Train_Split1_[A-Z]*_roc_curve.jpg":" # 训练集中的ROC曲线",
         "Train_Split1_[A-Z]*_roc_curve.txt":" # 训练集中用于做ROC曲线的数据。",
         "Train_Split1_[A-Z]*_TrueAndPredict.txt": " # 在训练集中模型预测为某一类的概率,以及模型实际预测的值和真值。",
-        "Split1_.*.txt":" # 模型的最佳超参数。",
+        "Split1_(LASSO|LR|RFC|XGBOOST|SVM)\.txt":" # 模型的最佳超参数。",
         "Split1_.*RFE.pkl":" # 保存的RFE模型。",
         "Split1_.*SHAP.pkl":" # 保存的SHAP模型。",
         "Split1_.*.pkl":" # 保存的最佳模型。",

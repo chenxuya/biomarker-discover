@@ -26,6 +26,7 @@ Mild_vs_Severe\
     |----MergedResult\ # 重要文件夹
     |    |----LASSO\ # 利用LASSO模型建模(筛选)的结果。
     |    |    |----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
+    |    |    |----SavedModel_Importance.jpg
     |    |    |----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate
@@ -40,6 +41,7 @@ Mild_vs_Severe\
     |    |    |----Train_TPR.txt
     |    |----LR\ # 利用logistic regression 建模(筛选)的结果。
     |    |    |----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
+    |    |    |----SavedModel_Importance.jpg
     |    |    |----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate
@@ -54,6 +56,7 @@ Mild_vs_Severe\
     |    |    |----Train_TPR.txt
     |    |----RFC\  # 利用随机森林建模(筛选)的结果。
     |    |    |----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
+    |    |    |----SavedModel_Importance.jpg
     |    |    |----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate
@@ -75,8 +78,15 @@ Mild_vs_Severe\
     |    |----SHAP_cumulative_75percent_venn.png (重要图片,如果只是构建模型可以忽略该文件) # 利用SHAP算法评价特征重要性。根据累计值75%(累计值说明参考筛选或建模方法),不同模型筛选出的biomarker的韦恩图
     |    |----SHAP_cumulative_95percent_venn.png (重要图片,如果只是构建模型可以忽略该文件) # 利用SHAP算法评价特征重要性。根据累计值95%(累计值说明参考筛选或建模方法),不同模型筛选出的biomarker的韦恩图
     |    |----SHAP_summary.xlsx(重要结果) # 根据不同的累计值(75%,95%)筛选出的marker汇总,以及它们之间的交集汇总。weighted_feature_importance这个sheet用于后续客户特征挑选参考(参考筛选或建模步骤)。
+    |    |----Test_Metric.png # 评价指标
+    |    |----Test_Metric.txt # 模型在测试集中获得的各种评价指标,包括AUC,AUC_CI_left(auc 置信区间的下区间), AUC_CI_right(auc 置信区间的上区间),AUC_pvalue, specificity,f1-score, precision,recall(Sensitivity), Optimal_threshold,以及它们在不同数据拆分中的平均值和标准差
+    |    |----TestMetric.png # 评价指标
+    |    |----Train_Metric.png # 评价指标
+    |    |----Train_Metric.txt
+    |    |----TrainMetric.png # 评价指标
     |    |----XGBOOST\
     |    |    |----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
+    |    |    |----SavedModel_Importance.jpg
     |    |    |----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。
     |    |    |----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate
@@ -89,6 +99,8 @@ Mild_vs_Severe\
     |    |    |----Train_ROC.jpg
     |    |    |----Train_Thresholds.txt
     |    |    |----Train_TPR.txt
+    |----readme.html
+    |----readme.txt
     |----Split1\ # 某一次数据拆分的结果
     |    |----LASSO\ # 利用LASSO模型建模(筛选)的结果。
     |    |    |----Confusion\ # 混淆矩阵

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold
 import numpy as np
 from sklearn import preprocessing
+import category_encoders as ce
 # Python code for data_preprocessing
 
 class DataGroup():

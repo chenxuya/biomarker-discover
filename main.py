@@ -2,7 +2,8 @@ from src import Param, DataLoader, read_file
 from src import DataGroup, DataSplit, Preprocess
 from src import RFEFeatureSelector,SHAPFeatureSelector, FeatureSelectorIndividual
 from src import Modeling, Testing
-from src import CommonParam, add_to_dict, shape_tprfpr, shape_metric, plot_roc,weight_score, interaction, venn_plot, batch_imp, batch_out, merge_multi_panel
+from src import CommonParam, add_to_dict, shape_tprfpr, shape_metric,shape_metric_dict,weight_score, interaction, batch_imp, batch_out, merge_multi_panel
+from src import plot_metric, plot_roc, venn_plot
 from src import annoed_readme
 from os.path import join
 import os
@@ -16,8 +17,8 @@ if len(sys.argv) != 2:
     print("Usage: python main.py <cfg_file>")
     sys.exit(1)
 cfg_path = sys.argv[1]
-
 cfgs = Param(cfg_path)
+
 # cfgs = Param(r"/share2/users/chenxu/code/tools2/biomarker-discovery/ml.cfg")
 category = None if cfgs.category==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
 norminal= None if cfgs.norminal==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
@@ -145,6 +146,17 @@ for m in range(marker_df.shape[1]):
                 add_to_dict(train_dict5, model_method, train_res5)
         merged_out = join(root_out, compare, CommonParam.mergedres)
         os.makedirs(merged_out, exist_ok=True)
+        cur_compare_metric_train = shape_metric_dict(train_dict4)
+        cur_compare_metric_test = shape_metric_dict(test_dict4)
+        train_metric_fig = plot_metric(cur_compare_metric_train, None, None)
+        test_metric_fig = plot_metric(cur_compare_metric_test, None, None)
+        train_metric_fig.savefig(join(merged_out, f"{CommonParam.train_prefix}_{CommonParam.metric}.png"))
+        test_metric_fig.savefig(join(merged_out, f"{CommonParam.test_prefix}_{CommonParam.metric}.png"))
+        plt.close(train_metric_fig)
+        plt.close(test_metric_fig)
+        cur_compare_metric_train.to_csv(join(merged_out, f"{CommonParam.train_prefix}_{CommonParam.metric}.txt"), sep="\t", index=False)
+        cur_compare_metric_test.to_csv(join(merged_out, f"{CommonParam.test_prefix}_{CommonParam.metric}.txt"), sep="\t", index=False)
+
         metric_ali = []
         imp_ali = []
         rfe_ali, shap_ali = [], []

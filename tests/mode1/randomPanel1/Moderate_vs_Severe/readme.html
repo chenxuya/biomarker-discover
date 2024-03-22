@@ -26,6 +26,7 @@ Moderate_vs_Severe\<br>
 &emsp;|----MergedResult\ # 重要文件夹<br>
 &emsp;|&emsp;|----LASSO\ # 利用LASSO模型建模(筛选)的结果。<br>
 &emsp;|&emsp;|&emsp;|----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
+&emsp;|&emsp;|&emsp;|----SavedModel_Importance.jpg<br>
 &emsp;|&emsp;|&emsp;|----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate<br>
@@ -40,6 +41,7 @@ Moderate_vs_Severe\<br>
 &emsp;|&emsp;|&emsp;|----Train_TPR.txt<br>
 &emsp;|&emsp;|----LR\ # 利用logistic regression 建模(筛选)的结果。<br>
 &emsp;|&emsp;|&emsp;|----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
+&emsp;|&emsp;|&emsp;|----SavedModel_Importance.jpg<br>
 &emsp;|&emsp;|&emsp;|----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate<br>
@@ -54,6 +56,7 @@ Moderate_vs_Severe\<br>
 &emsp;|&emsp;|&emsp;|----Train_TPR.txt<br>
 &emsp;|&emsp;|----RFC\  # 利用随机森林建模(筛选)的结果。<br>
 &emsp;|&emsp;|&emsp;|----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
+&emsp;|&emsp;|&emsp;|----SavedModel_Importance.jpg<br>
 &emsp;|&emsp;|&emsp;|----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate<br>
@@ -75,8 +78,15 @@ Moderate_vs_Severe\<br>
 &emsp;|&emsp;|----SHAP_cumulative_75percent_venn.png (重要图片,如果只是构建模型可以忽略该文件) # 利用SHAP算法评价特征重要性。根据累计值75%(累计值说明参考筛选或建模方法),不同模型筛选出的biomarker的韦恩图<br>
 &emsp;|&emsp;|----SHAP_cumulative_95percent_venn.png (重要图片,如果只是构建模型可以忽略该文件) # 利用SHAP算法评价特征重要性。根据累计值95%(累计值说明参考筛选或建模方法),不同模型筛选出的biomarker的韦恩图<br>
 &emsp;|&emsp;|----SHAP_summary.xlsx(重要结果) # 根据不同的累计值(75%,95%)筛选出的marker汇总,以及它们之间的交集汇总。weighted_feature_importance这个sheet用于后续客户特征挑选参考(参考筛选或建模步骤)。<br>
+&emsp;|&emsp;|----Test_Metric.png # 评价指标<br>
+&emsp;|&emsp;|----Test_Metric.txt # 模型在测试集中获得的各种评价指标,包括AUC,AUC_CI_left(auc 置信区间的下区间), AUC_CI_right(auc 置信区间的上区间),AUC_pvalue, specificity,f1-score, precision,recall(Sensitivity), Optimal_threshold,以及它们在不同数据拆分中的平均值和标准差<br>
+&emsp;|&emsp;|----TestMetric.png # 评价指标<br>
+&emsp;|&emsp;|----Train_Metric.png # 评价指标<br>
+&emsp;|&emsp;|----Train_Metric.txt<br>
+&emsp;|&emsp;|----TrainMetric.png # 评价指标<br>
 &emsp;|&emsp;|----XGBOOST\<br>
 &emsp;|&emsp;|&emsp;|----RFE_Importance.txt # 根据RFE算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
+&emsp;|&emsp;|&emsp;|----SavedModel_Importance.jpg<br>
 &emsp;|&emsp;|&emsp;|----SavedModel_Importance.txt # 根据模型自身特性获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----SHAP_Importance.txt # 根据SHAP算法获得的特征重要性。每个特征在不同数据拆分中的重要性,以及它们在不同数据拆分中的均值和标准差。<br>
 &emsp;|&emsp;|&emsp;|----Test_FPR.txt# 模型在测试集中绘制ROC曲线所需的false positive rate<br>
@@ -89,6 +99,8 @@ Moderate_vs_Severe\<br>
 &emsp;|&emsp;|&emsp;|----Train_ROC.jpg<br>
 &emsp;|&emsp;|&emsp;|----Train_Thresholds.txt<br>
 &emsp;|&emsp;|&emsp;|----Train_TPR.txt<br>
+&emsp;|----readme.html<br>
+&emsp;|----readme.txt<br>
 &emsp;|----Split1\ # 某一次数据拆分的结果<br>
 &emsp;|&emsp;|----LASSO\ # 利用LASSO模型建模(筛选)的结果。<br>
 &emsp;|&emsp;|&emsp;|----Confusion\ # 混淆矩阵<br>

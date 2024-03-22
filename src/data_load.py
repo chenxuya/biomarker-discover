@@ -1,7 +1,7 @@
 import pandas as pd
 import configparser
 from typing import Tuple
-from .utils.str_param import CommonParam
+from src.utils.str_param import CommonParam
 class Param():
     def __init__(self, cfg_path) -> None:
         self.str_param = CommonParam()
