@@ -48,6 +48,11 @@ elif os.path.exists(cfgs.datafile) and os.path.exists(cfgs.test_data_file):
     info = data_all[[CommonParam.sample,CommonParam.group]].astype(str)
     train_sample = train_data[CommonParam.sample]
     cfgs.split_times = 1
+elif os.path.exists(cfgs.datafile) and os.path.exists(cfgs.info_file) and os.path.exists(cfgs.test_data_file):
+    raise ValueError("Please choose the specified mode. \nmode1:datafile+info_file; \nmode2:datafile+test_data_file")
+else:
+    raise ValueError("Please check input file")
+
 pos_inf = check_values(data, np.inf, f"存在无穷值：")
 neg_inf = check_values(data, -np.inf, f"存在负无穷值：")
 if pos_inf or neg_inf:
@@ -56,10 +61,7 @@ if cfgs.transform == "log2":
     neg_val = check_negative_values(data)
     if neg_val:
         raise ValueError('由于要执行log2变换, 程序因数据文件中存在负值而退出, 请检查输入文件')
-elif os.path.exists(cfgs.datafile) and os.path.exists(cfgs.info_file) and os.path.exists(cfgs.test_data_file):
-    raise ValueError("Please choose the specified mode. \nmode1:datafile+info_file; \nmode2:datafile+test_data_file")
-else:
-    raise ValueError("Please check input file")
+
 root_out_ori = cfgs.outdir
 if cfgs.marker_file != CommonParam.none:
     print('marker file is designated')
