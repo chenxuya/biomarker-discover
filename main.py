@@ -1,5 +1,6 @@
 from src import Param, DataLoader, read_file
 from src import DataGroup, DataSplit, Preprocess
+from src import check_values, check_negative_values
 from src import RFEFeatureSelector,SHAPFeatureSelector, FeatureSelectorIndividual
 from src import Modeling, Testing
 from src import CommonParam, add_to_dict, shape_tprfpr, shape_metric,shape_metric_dict,weight_score, interaction, batch_imp, batch_out, merge_multi_panel
@@ -8,6 +9,8 @@ from src import annoed_readme
 from os.path import join
 import os
 import pandas as pd
+import numpy as np
+import warnings
 import glob
 import matplotlib.pyplot as plt
 import sys
@@ -37,11 +40,22 @@ if os.path.exists(cfgs.datafile) and os.path.exists(cfgs.info_file):
 elif os.path.exists(cfgs.datafile) and os.path.exists(cfgs.test_data_file):
     train_data = read_file(cfgs.datafile)
     test_data = read_file(cfgs.test_data_file)
-    data_all = pd.concat([train_data, test_data], axis=0)
+    if len(train_data.columns) != len(test_data.columns):
+        # 如果不同，发出警告信息
+        warnings.warn("警告: DataFrame列数不同。datafile的列数是{}, test_data_file的列数是{}".format(len(train_data.columns), len(test_data.columns)))
+    data_all = pd.concat([train_data, test_data], axis=0,join='inner')
     data = data_all.drop(CommonParam.group, axis=1).set_index(CommonParam.sample, drop=True).T
     info = data_all[[CommonParam.sample,CommonParam.group]].astype(str)
     train_sample = train_data[CommonParam.sample]
     cfgs.split_times = 1
+pos_inf = check_values(data, np.inf, f"存在无穷值：")
+neg_inf = check_values(data, -np.inf, f"存在负无穷值：")
+if pos_inf or neg_inf:
+    raise ValueError("程序因数据文件中存在无穷值而退出, 请检查输入文件")
+if cfgs.transform == "log2":
+    neg_val = check_negative_values(data)
+    if neg_val:
+        raise ValueError('由于要执行log2变换, 程序因数据文件中存在负值而退出, 请检查输入文件')
 elif os.path.exists(cfgs.datafile) and os.path.exists(cfgs.info_file) and os.path.exists(cfgs.test_data_file):
     raise ValueError("Please choose the specified mode. \nmode1:datafile+info_file; \nmode2:datafile+test_data_file")
 else:
@@ -192,7 +206,10 @@ for m in range(marker_df.shape[1]):
             cumulative_percent = feature_selector.cumulative_importance_selection(cum_threshold)
             cum_intersection = interaction(cumulative_percent)
             venn_cum = venn_plot(cumulative_percent)
-            venn_cum.savefig(join(merged_out, f"{CommonParam.model}_cumulative_{int(cum_threshold*100)}percent_venn.png"))
+            if venn_cum is not None:
+                venn_cum.savefig(join(merged_out, f"{CommonParam.model}_cumulative_{int(cum_threshold*100)}percent_venn.png"))
+            else:
+                venn_cum = None
             plt.close()
             cum_intersection.to_excel(excel_writer, sheet_name=f"cumulative_{int(cum_threshold*100)}percent", index=False)
         excel_writer.close()

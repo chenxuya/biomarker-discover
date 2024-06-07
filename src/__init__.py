@@ -1,5 +1,6 @@
 # Python code for __init__
 from .data_load import Param, DataLoader, read_file
+from .chek_data import check0infna, check_negative_values, check_values
 from .data_preprocessing import DataGroup, DataSplit, Preprocess
 from .feature_evaluate import RFEFeatureSelector,SHAPFeatureSelector, FeatureSelectorIndividual
 from .model import Modeling, Testing

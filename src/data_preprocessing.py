@@ -295,7 +295,7 @@ class Preprocess():
         meta_test = self.x_test.loc[:, meta_var]
         if self.transform=="log2":
             min_value = min(self.x_train.min().min(), self.x_test.min().min())
-            if min_value < 0.00000001/100:
+            if min_value > 0.00000001/100:
                 adjustment_value = min_value / 10
             else:
                 adjustment_value = 0.00000001

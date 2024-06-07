@@ -158,7 +158,19 @@ def read_file(file_path:str, index_col:int=None)->pd.DataFrame:
     elif file_path.endswith(".csv"):
         data = pd.read_csv(file_path, sep=",", index_col=index_col)
     elif file_path.endswith(".xlsx"):
-        data = pd.read_excel(file_path, index_col=index_col, header=0)
+        # 首先尝试读取Excel文件
+        try:
+            excel = pd.ExcelFile(file_path)
+        except Exception as e:
+            print(f"读取Excel文件时发生错误：{e}")
+        else:
+            # 检查Excel文件中的sheet数量
+            if len(excel.sheet_names) > 1:
+                # 如果有多个sheet，抛出错误
+                raise ValueError("Excel文件包含多个sheet，仅支持单个sheet。")
+            else:
+                # 如果只有一个sheet，继续读取数据
+                data = pd.read_excel(excel, index_col=index_col, header=0)
     else:
         raise ValueError(f"file_path must be .txt(sep by tab) or .csv(sep by comma) or .xlsx or .xls(sep by tab), but get {file_path}")
     return data
