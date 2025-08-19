@@ -15,13 +15,13 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # 检查命令行参数
-# if len(sys.argv) != 2:
-#     print("Usage: python main.py <cfg_file>")
-#     sys.exit(1)
-# cfg_path = sys.argv[1]
-# cfgs = Param(cfg_path)
+if len(sys.argv) != 2:
+    print("Usage: python main.py <cfg_file>")
+    sys.exit(1)
+cfg_path = sys.argv[1]
+cfgs = Param(cfg_path)
 
-cfgs = Param(r"/home/chenxu/work/metware/code/tools2/biomarker-discovery/ml.cfg")
+# cfgs = Param(r"/home/chenxu/work/metware/code/tools2/biomarker-discovery/ml.cfg")
 category = None if cfgs.category==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
 norminal= None if cfgs.norminal==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
 rfe = cfgs.rfe
