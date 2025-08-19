@@ -1,0 +1,16 @@
+Metric	Value
+AUC	0.8307291666666666
+AUC_CI_left	0.7481621958641984
+AUC_CI_right	0.9038156776733904
+AUC_pvalue	2.345726529461328e-05
+Accuracy	0.625
+F1_score	0.625
+Precision	0.625
+Recall(Sensitivity)	0.625
+Specificity	0.8125
+Optimal_threshold	
+macro_AUC	0.8213734567901234
+macro_F1_score	0.6295739348370927
+macro_Precision	0.7371794871794872
+macro_Recall(Sensitivity)	0.75
+macro_Specificity	0.8333333333333334

@@ -17,6 +17,7 @@ from sklearn.linear_model import Lasso, LogisticRegression
 import xgboost as xgb
 import pickle
 from .utils.diff_test import DelongTest
+from sklearn.preprocessing import LabelBinarizer
 # Python code for model
 
 class Modeling():
@@ -60,12 +61,12 @@ class Modeling():
                 return CustomLogModel(self.lasso_times, "LASSO") # 运行lasso1000次，取结果的均值
             else:
                 if self.num_class >2:
-                    return LogisticRegression(random_state=self.random_seed, solver="saga", penalty="l1", max_iter=1000, multi_class='multinomial',class_weight="balanced")
+                    return LogisticRegression(random_state=self.random_seed, solver="saga", penalty="l1", max_iter=1000,class_weight="balanced")
                 else:
                     return LogisticRegression(random_state=self.random_seed, solver="liblinear", penalty="l1", max_iter=1000, class_weight="balanced")
         elif method.upper() =="LR": # logistic regression
             if self.num_class > 2:
-                return LogisticRegression(solver="saga", random_state=self.random_seed, max_iter=1000, multi_class='multinomial', class_weight="balanced")
+                return LogisticRegression(solver="saga", random_state=self.random_seed, max_iter=1000, class_weight="balanced")
             else:
                 return LogisticRegression(solver="saga", random_state=self.random_seed, max_iter=1000, class_weight="balanced")
         elif method.upper() == "ELASTICNET":
@@ -401,7 +402,7 @@ class Testing():
         self.roc_auc = metrics.auc(self.fpr, self.tpr)
         self.macro_roc_auc = metrics.roc_auc_score(test_y_bin, self.probality, average=macro)  #宏平均
 
-        self.rocDisplay = metrics.RocCurveDisplay(fpr=self.fpr, tpr=self.tpr, roc_auc=self.roc_auc, estimator_name = method)
+        self.rocDisplay = metrics.RocCurveDisplay(fpr=self.fpr, tpr=self.tpr, roc_auc=self.roc_auc, estimator_name = self.method)
         self.precision = metrics.precision_score(self.test_y, self.predict, average=mirco)
         self.recall = metrics.recall_score(self.test_y, self.predict, average=mirco)
         self.f1_score = metrics.f1_score(self.test_y, self.predict, average=mirco)
@@ -420,13 +421,13 @@ class Testing():
         self.confusion_matrix_display = metrics.ConfusionMatrixDisplay(self.confusion_matrix)
 
         self.feature_name = self.model.feature_names_in_
-        if method =="SVM":
+        if self.method =="SVM":
             params_dict = self.model.get_params(deep=True)
             if params_dict["kernel"] =="linear":
-                self.var_importance = np.abs(self.model.coef_)
-        if method in ["LR", "LASSO"]:
-            self.var_importance = np.abs(self.model.coef_)
-        if method in ["RFC", "XGBOOST"] or ('DNN' in method.upper()):
+                self.var_importance = np.mean(np.abs(self.model.coef_), axis=0)
+        if self.method in ["LR", "LASSO"]:
+            self.var_importance = np.mean(np.abs(self.model.coef_), axis=0)
+        if self.method in ["RFC", "XGBOOST"] or ('DNN' in self.method.upper()):
             self.var_importance = self.model.feature_importances_
 
 
@@ -457,17 +458,17 @@ class Testing():
         ##二分类
         if self.confusion_matrix.shape[0]==2:
             com_metrics = [self.roc_auc, self.auc_ci_left, self.auc_ci_right, self.auc_pvalue,self.accuracy,self.f1_score, self.precision, self.recall, self.specificity,self.brier_score, self.optimal_threshold]
-            com_metrics_name = [self.common_param.auc,"AUC_CI_left", "AUC_CI_right", "AUC_pvalue", "Accuracy","F1_socre", "Precision", "Recall(Sensitivity)","Specificity","Brier_score", "Optimal_threshold"]
+            com_metrics_name = [self.common_param.auc,"AUC_CI_left", "AUC_CI_right", "AUC_pvalue", "Accuracy","F1_score", "Precision", "Recall(Sensitivity)","Specificity","Brier_score", "Optimal_threshold"]
         else:
             com_metrics = [self.roc_auc, self.auc_ci_left, self.auc_ci_right, self.auc_pvalue,self.accuracy,self.f1_score, self.precision, self.recall, self.specificity, self.optimal_threshold,
                             self.macro_roc_auc, self.macro_f1_score, self.macro_precision, self.macro_recall, self.macro_specificity]
-            com_metrics_name = [self.common_param.auc,"AUC_CI_left", "AUC_CI_right", "AUC_pvalue", "Accuracy","F1_socre", "Precision", "Recall(Sensitivity)","Specificity", "Optimal_threshold",
-                            "macro_AUC", "macro_F1_socre", "macro_Precision", "macro_Recall(Sensitivity)","macro_Specificity"]
+            com_metrics_name = [self.common_param.auc,"AUC_CI_left", "AUC_CI_right", "AUC_pvalue", "Accuracy","F1_score", "Precision", "Recall(Sensitivity)","Specificity", "Optimal_threshold",
+                            "macro_AUC", "macro_F1_score", "macro_Precision", "macro_Recall(Sensitivity)","macro_Specificity"]
         res4 = pd.DataFrame({"Value":com_metrics}, index=com_metrics_name)
         res4.to_csv(join(outdir, self.common_param.metric,f"{prefix}_{split}_{self.method}_metrics.txt"), sep="\t", index_label=self.common_param.metric)
         ## 
         if self.var_importance is not None:
-            res5 = pd.DataFrame(self.var_importance.squeeze(), index=self.feature_name)
+            res5 = pd.DataFrame(self.var_importance.T, index=self.feature_name)
             res5.to_csv(join(outdir, self.common_param.importance,f"{split}_{self.method}_variableImportance.txt"), sep="\t")
         fig, ax = plt.subplots(figsize=(10,10),dpi=100)
         self.rocDisplay.plot(ax=ax, lw=2, color="crimson")

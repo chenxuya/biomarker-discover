@@ -1,0 +1,43 @@
+HyperParam	best
+objective	multi:softprob
+base_score	
+booster	
+callbacks	
+colsample_bylevel	
+colsample_bynode	
+colsample_bytree	
+device	
+early_stopping_rounds	
+enable_categorical	False
+eval_metric	
+feature_types	
+feature_weights	
+gamma	
+grow_policy	
+importance_type	
+interaction_constraints	
+learning_rate	0.1
+max_bin	
+max_cat_threshold	
+max_cat_to_onehot	
+max_delta_step	
+max_depth	4
+max_leaves	
+min_child_weight	
+missing	
+monotone_constraints	
+multi_strategy	
+n_estimators	50
+n_jobs	
+num_parallel_tree	
+random_state	46
+reg_alpha	
+reg_lambda	
+sampling_method	
+scale_pos_weight	
+subsample	
+tree_method	
+validate_parameters	
+verbosity	
+alpha	10
+lambda	0.1

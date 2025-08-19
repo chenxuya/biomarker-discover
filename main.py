@@ -11,15 +11,17 @@ import pandas as pd
 import glob
 import matplotlib.pyplot as plt
 import sys
+import warnings
+warnings.filterwarnings("ignore")
 
 # 检查命令行参数
-if len(sys.argv) != 2:
-    print("Usage: python main.py <cfg_file>")
-    sys.exit(1)
-cfg_path = sys.argv[1]
-cfgs = Param(cfg_path)
+# if len(sys.argv) != 2:
+#     print("Usage: python main.py <cfg_file>")
+#     sys.exit(1)
+# cfg_path = sys.argv[1]
+# cfgs = Param(cfg_path)
 
-# cfgs = Param(r"/share2/users/chenxu/code/tools2/biomarker-discovery/ml.cfg")
+cfgs = Param(r"/home/chenxu/work/metware/code/tools2/biomarker-discovery/ml.cfg")
 category = None if cfgs.category==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
 norminal= None if cfgs.norminal==CommonParam.none else cfgs.category.split(CommonParam.semi_sep)
 rfe = cfgs.rfe
@@ -192,7 +194,10 @@ for m in range(marker_df.shape[1]):
             cumulative_percent = feature_selector.cumulative_importance_selection(cum_threshold)
             cum_intersection = interaction(cumulative_percent)
             venn_cum = venn_plot(cumulative_percent)
-            venn_cum.savefig(join(merged_out, f"{CommonParam.model}_cumulative_{int(cum_threshold*100)}percent_venn.png"))
+            if venn_cum is not None:
+                venn_cum.savefig(join(merged_out, f"{CommonParam.model}_cumulative_{int(cum_threshold*100)}percent_venn.png"))
+            else:
+                venn_cum = None
             plt.close()
             cum_intersection.to_excel(excel_writer, sheet_name=f"cumulative_{int(cum_threshold*100)}percent", index=False)
         excel_writer.close()

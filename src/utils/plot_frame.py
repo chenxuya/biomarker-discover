@@ -83,7 +83,7 @@ def plot_metric(data, filter_key:dict, group_col="Type", hue_col="Metric",
         for key, value in filter_key.items():
             data = data[data[key].isin(value.split(";"))]
 
-    metric_col = ["AUC", "Accuracy","F1_socre","Precision","Recall(Sensitivity)","Specificity","Brier_score"]
+    metric_col = ["AUC", "Accuracy","F1_score","Precision","Recall(Sensitivity)","Specificity"]
 
     data = data.drop(["AUC_CI_left","AUC_CI_right","AUC_pvalue", "Optimal_threshold"], axis=1)
     data.rename(columns={"Recall(Sensitivity)":"Sensitivity"})
