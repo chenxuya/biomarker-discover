@@ -9,7 +9,7 @@ import venn
 
 def plot_roc(tpr, fpr):
     assert tpr.shape[1] == fpr.shape[1]
-    fig, ax = plt.subplots(figsize=(10,10), dpi=100)
+    fig, ax = plt.subplots(figsize=(5,5), dpi=100)
     aucs = list()
     mean_fpr = np.linspace(0,1,max(fpr.shape[0], 100))
     new_tpr = pd.DataFrame(index=range(len(mean_fpr)), columns=tpr.columns)
@@ -77,7 +77,7 @@ def venn_plot(df:pd.DataFrame):
 
 
 def plot_metric(data, filter_key:dict, group_col="Type", hue_col="Metric",
-     x_col="Method", ncol=1, fig_cell_width=7, fig_cell_height=7, share_x=True, share_y=False,
+     x_col="Method", ncol=1, fig_cell_width=4, fig_cell_height=4, share_x=True, share_y=False,
       x_ticklabel_rotation=60):
     if filter_key:
         for key, value in filter_key.items():
@@ -131,7 +131,7 @@ def plot_horizontal_barplot(df, top_n=10):
     df.fillna(0, inplace=True)
     df = df.sort_values(by="Mean", ascending=False)
     df = df.head(top_n).sort_values(by="Mean", ascending=True)
-    fig = plt.figure(figsize=(10, 6))
+    fig = plt.figure(figsize=(5, 4))
     df["Mean"].plot(kind='barh', xerr=df["Std"], color='skyblue')
     plt.xlabel('Mean Importance')
     plt.title('Mean Importance of Feature with Standard Deviation')

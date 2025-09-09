@@ -73,3 +73,80 @@ python main.py <cfg_file>
 **配置文件总结**
 
 该配置文件定义了各种参数，涵盖了从数据加载、预处理、模型训练、评估到特征选择等整个机器学习工作流的各个步骤。用户可以根据具体数据集和需求调整这些参数。
+
+# English version
+# Biomarker Discovery
+
+This project utilizes several commonly used machine learning methods (LR, LASSO, Random Forest, XGBoost, SVC_linear) to screen for biomarkers. It can handle various data formats and supports multiple machine learning algorithms and feature selection methods. It is recommended to remove some exogenous substances before running this workflow to avoid interference with the results.
+
+## Usage
+* 1. Prepare the data. The specific data requirements are detailed in the Configuration File and Configuration File Explanation sections.
+* 2. Set up the configuration file. Instructions on how to set up the configuration file are detailed in the Configuration File Explanation section.
+* 3. Run the workflow, where `<cfg_file>` is the path to the configuration file.
+```
+python main.py <cfg_file>
+```
+
+## Configuration File Explanation
+
+The **Configuration File** defines various parameters for running the machine learning workflow for biomarker discovery. The main sections of the configuration file and their meanings are listed below:
+
+**Data Files**
+
+**Mode 1**
+* `datafile`: Path to the metabolite concentration or protein concentration data file. In `Mode 1`, this file should be in tabular format. The first row contains sample information and other annotations, and the first column contains metabolite or protein identifiers.
+* `info_file`: Path to the sample information file. This file must contain columns named "Sample" and "Group" (case-sensitive).
+* `marker_file`: Path to the file containing the list of markers for model training (optional). The column names in this file must be unique; each column represents a panel, and each element within a column represents a feature (metabolite or protein). If set to `None`, all features will be used to train the model.
+
+**Mode 2**
+* `datafile`: Path to the metabolite concentration or protein concentration data file. In `Mode 2`, this file should be in tabular format. The first row contains protein or metabolite identifiers, and the first column contains sample information. The last column contains the sample grouping information.
+* `marker_file`: Path to the file containing the list of markers for model training (optional). The column names in this file must be unique; each column represents a panel, and each element within a column represents a feature (metabolite or protein). If set to `None`, all features will be used to train the model.
+* `test_data_file`: Path to the test dataset file. The format of this file should be the same as `datafile`.
+
+**Note**:
+* You must choose between `info_file` and `test_data_file`. Selecting `info_file` indicates `Mode 1`, while selecting `test_data_file` indicates `Mode 2`.
+
+**Output Directory**
+
+* `outdir`: Path to the output directory for results.
+
+**Comparison Group Settings**
+* `compare`: Names of the comparison groups.
+1.  Each comparison group is split by `_vs_`. For example, `A_vs_B` indicates the two groups are A and B. A is the control/normal group, and B is the case/diseased group.
+2.  To compare multiple groups simultaneously, e.g., `A_vs_B_vs_C`, indicates a three-group comparison (A, B, C), performing a 3-class classification task. Other multi-class tasks follow this pattern.
+3.  To perform multiple pairwise comparisons simultaneously, e.g., `A_vs_B;C_vs_D;...`, indicates two comparison pairs: A vs B and C vs D. A is the control group for the first pair, B is the case group. C is the control group for the second pair, D is the case group. Separate different comparison pairs with a semicolon (`;`).
+
+**Preprocessing**
+
+* `transform`: Transformation method for the metabolite data (optional, defaults to "no", meaning no transformation). Valid values include "log2".
+* `scale`: Scaling method for the metabolite data (optional, defaults to "min-max"). Valid values include "min-max" (Min-Max scaling), "z-score" (Standardization), and "no" (no scaling).
+* `category`: Column names for categorical variables (comma-separated, optional). Case-sensitive.
+* `norminal`: Column names for variables assumed to be normally distributed (comma-separated, optional). Case-sensitive. These will never be log-transformed.
+* `norminal_scale`: Scaling method for normally distributed variables (optional, defaults to "none", meaning no scaling). Valid values include "min-max" (Min-Max scaling), "z-score" (Standardization), and "none" (no scaling).
+* `ordinal`: Column names for ordinal variables (comma-separated, optional).
+
+**Model**
+
+* `method`: Machine learning algorithms (comma-separated). Valid values include "SVM" (Support Vector Machine), "RFC" (Random Forest Classifier), "LASSO" (LASSO regression), "LR" (Logistic Regression), "elasticnet" (Elastic Net), "XGBOOST" (XGBoost).
+* `k_fold`: Number of folds (K) for cross-validation used in parameter tuning (defaults to 5). If the sample size is too small, an error may occur; decrease this value in such cases.
+* `rfe`: Whether to use Recursive Feature Elimination (RFE) for feature selection (boolean, defaults to `True`).
+* `shap`: Whether to use SHAP for feature selection (boolean, defaults to `True`).
+* `opti_method`: Parameter optimization method (optional, defaults to "grid", grid search). Valid values include "bayes" (Bayesian optimization, not recommended) and "grid" (grid search).
+* `scoring`: Model evaluation metric (string). Valid values include "roc_auc" (Area Under the ROC Curve), "accuracy" (Accuracy), and "f1" (F1 Score).
+* `train_size`: Proportion of data to use for training (float, range 0-1). If greater than or equal to 1, the test set will be the same as the training set.
+* `split_times`: Number of times to split the dataset (defaults to 2). Only effective in `Mode 2`.
+* `lasso_times`: Number of repetitions for LASSO parameter optimization (defaults to 1).
+* `random_seed`: Random seed (used for reproducibility, defaults to 46).
+* `refit`: Whether to retrain the model after each dataset split (boolean, defaults to `True`).
+* `n_jobs`: Number of processes to use for parallel computation (defaults to 20).
+
+**Feature Selection** (This section is optional and not fully implemented yet)
+
+* `min_features_to_select`: Minimum number of features to select (defaults to 1).
+* `p_value`: p-value threshold for significance testing in feature selection (defaults to 1).
+* `adjusted_p`: Adjusted p-value threshold (defaults to 1).
+* `fold_change`: Fold change threshold for differential expression analysis (defaults to 1).
+
+**Configuration File Summary**
+
+This configuration file defines various parameters covering the entire machine learning workflow, from data loading and preprocessing to model training, evaluation, and feature selection. Users can adjust these parameters according to their specific dataset and requirements.
